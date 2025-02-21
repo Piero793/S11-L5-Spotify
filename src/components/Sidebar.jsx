@@ -1,7 +1,18 @@
 import { Nav } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { useDispatch } from "react-redux";
+import { fetchSongs } from "../redux/store/actions/musicActions";
+import { useState } from "react";
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    dispatch(fetchSongs(searchTerm));
+  };
+
   return (
     <aside className="col-12 col-md-4 col-lg-3 col-xl-2">
       <Nav className="navbar navbar-expand-md fixed-left justify-content-between" id="sidebar">
@@ -34,12 +45,21 @@ const Sidebar = () => {
                   </a>
                 </li>
                 <li>
-                  <div className="input-group mt-3">
-                    <input type="text" className="form-control" placeholder="Search" aria-label="Search" />
+                  <form onSubmit={handleSearch} className="input-group mt-3">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Cerca artista..."
+                      aria-label="Search"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                    />
                     <div className="input-group-append">
-                      <button className="btn btn-outline-secondary btn-sm h-100">GO</button>
+                      <button className="btn btn-outline-secondary btn-sm h-100" type="submit">
+                        GO
+                      </button>
                     </div>
-                  </div>
+                  </form>
                 </li>
               </ul>
             </div>

@@ -1,3 +1,16 @@
+export const SELECT_SONG = "SELECT_SONG";
+export const TOGGLE_LIKE = "TOGGLE_LIKE";
+
+export const selectSong = (song) => ({
+  type: SELECT_SONG,
+  payload: song,
+});
+
+export const toggleLike = (songId) => ({
+  type: TOGGLE_LIKE,
+  payload: songId,
+});
+
 export const fetchSongsPending = () => ({
   type: "FETCH_SONGS_PENDING",
 });

@@ -2,6 +2,8 @@ const initialState = {
   music: {
     songs: [],
     status: "idle",
+    selectedSong: null,
+    likedSongs: [],
   },
 };
 
@@ -31,7 +33,26 @@ const mainReducer = (state = initialState, action) => {
           status: "failed",
         },
       };
-
+    case "SELECT_SONG":
+      return {
+        ...state,
+        music: {
+          ...state.music,
+          selectedSong: action.payload,
+        },
+      };
+    case "TOGGLE_LIKE": {
+      const isLiked = state.music.likedSongs.includes(action.payload);
+      return {
+        ...state,
+        music: {
+          ...state.music,
+          likedSongs: isLiked
+            ? state.music.likedSongs.filter((id) => id !== action.payload)
+            : [...state.music.likedSongs, action.payload],
+        },
+      };
+    }
     default:
       return state;
   }

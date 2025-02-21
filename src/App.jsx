@@ -5,6 +5,7 @@ import MainSection from "./components/MainSection";
 import Player from "./components/Player";
 import AlbumCard from "./components/AlbumCard";
 import MusicSection from "./components/MusicSection";
+import MusicPlayer from "./components/MusicPlayer";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Player />
       <AlbumCard />
       <MusicSection />
+      <MusicPlayer />
     </>
   );
 }

@@ -1,4 +1,5 @@
 import MusicSection from "./MusicSection";
+import MusicPlayer from "./MusicPlayer";
 
 const MainSection = () => {
   return (
@@ -36,6 +37,7 @@ const MainSection = () => {
           </div>
         </div>
       </div>
+      <MusicPlayer />
     </main>
   );
 };
