@@ -1,37 +1,37 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSongs } from "../redux/store/reducers/musicSlice";
 import AlbumCard from "./AlbumCard";
 
 const MusicSection = ({ artistName, sectionId }) => {
-  const [songs, setSongs] = useState([]);
+  const dispatch = useDispatch();
+  const songs = useSelector((state) => state.music[artistName]?.songs || []);
+  const status = useSelector((state) => state.music[artistName]?.status || "idle");
 
   useEffect(() => {
-    const fetchSongs = async () => {
-      try {
-        const response = await fetch(`https://striveschool-api.herokuapp.com/api/deezer/search?q=${artistName}`);
-        if (response.ok) {
-          const { data } = await response.json();
-          console.log("DATI:", data);
-          setSongs(data.slice(0, 4));
-        } else {
-          throw new Error("Errore nella fetch");
-        }
-      } catch (err) {
-        console.log("error", err);
-      }
-    };
-    fetchSongs();
-  }, [artistName]);
+    if (status === "id") {
+      dispatch(fetchSongs(artistName));
+    }
+  }, [artistName, dispatch, status]);
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (status === "failed") {
+    return <div>Error fetching songs</div>;
+  }
 
   return (
     <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3" id={sectionId}>
-      {songs.map((song, index) => {
-        return song && song.album && song.artist && song.title ? (
+      {songs.map((song, index) =>
+        song && song.album && song.artist && song.title_short ? (
           <AlbumCard key={song.id} singleSong={song} />
         ) : (
           (console.log(`Invalid song at index ${index}:`, song), null)
-        );
-      })}
+        )
+      )}
     </div>
   );
 };
