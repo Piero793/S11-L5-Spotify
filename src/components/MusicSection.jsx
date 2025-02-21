@@ -1,16 +1,16 @@
 /* eslint-disable react/prop-types */
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSongs } from "../redux/store/reducers/musicSlice";
+import { fetchSongs } from "../redux/store/actions/musicActions";
 import AlbumCard from "./AlbumCard";
 
 const MusicSection = ({ artistName, sectionId }) => {
   const dispatch = useDispatch();
-  const songs = useSelector((state) => state.music[artistName]?.songs || []);
-  const status = useSelector((state) => state.music[artistName]?.status || "idle");
+  const songs = useSelector((state) => state.music.songs);
+  const status = useSelector((state) => state.music.status);
 
   useEffect(() => {
-    if (status === "id") {
+    if (status === "idle") {
       dispatch(fetchSongs(artistName));
     }
   }, [artistName, dispatch, status]);
