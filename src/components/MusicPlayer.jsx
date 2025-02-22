@@ -1,3 +1,4 @@
+import { Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
 const MusicPlayer = () => {
@@ -8,12 +9,16 @@ const MusicPlayer = () => {
   }
 
   return (
-    <div>
-      <h3>Playing Now:</h3>
-      <p>Track: {selectedSong.title_short}</p>
-      <p>Artist: {selectedSong.artist.name}</p>
-      <img src={selectedSong.album.cover_medium} alt="track" />
-    </div>
+    <Container>
+      <Row>
+        <Col>
+          <h3>Playing Now:</h3>
+          <p>Track: {selectedSong.title_short}</p>
+          <p>Artist: {selectedSong.artist.name}</p>
+          <img src={selectedSong.album.cover_medium} alt="track" />
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

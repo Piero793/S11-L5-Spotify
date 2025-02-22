@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useDispatch } from "react-redux";
 import { selectSong, toggleLike } from "../redux/store/actions/musicActions";
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 
 const AlbumCard = ({ singleSong }) => {
   const dispatch = useDispatch();
@@ -27,7 +27,9 @@ const AlbumCard = ({ singleSong }) => {
           <br />
           Artist: {singleSong.artist.name}
         </p>
-        <button onClick={handleLikeClick}>Like</button>
+        <Button variant="success" onClick={handleLikeClick}>
+          Like
+        </Button>
       </div>
     </Container>
   );
